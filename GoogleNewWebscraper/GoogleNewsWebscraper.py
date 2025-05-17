@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 # Install dependencies if missing
 def install_packages():
-    required_packages = ["requests", "beautifulsoup4", "lxml"]
+    required_packages = ["requests", "beautifulsoup4", "lxml", "datetime"]
     for package in required_packages:
         try:
             importlib.import_module(package.replace("-", "_"))
@@ -15,6 +15,8 @@ def install_packages():
             subprocess.run([sys.executable, "-m", "pip", "install", package], check=True)
 
 install_packages()
+
+from datetime import datetime
 
 # Define variables:
 url = 'https://news.sky.com/topic/chile-6421'
@@ -40,9 +42,10 @@ for idx, article in enumerate(articles, start=1):
         headline_text = "No headline found"
 
     if timestamp and timestamp.has_attr("datetime"):
-        date_text = timestamp["datetime"].split("T")[0]  # Extract only date (YYYY-MM-DD)
+        original_date = timestamp["datetime"]  # Full timestamp (YYYY-MM-DD HH:MM:SS)
+        formatted_date = datetime.strptime(original_date, "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%Y")  # Convert to DD-MM-YYYY
     else:
-        date_text = "No date available"
+        formatted_date = "No date available"
 
     # Print the results to terminal
-    print(f"{idx}. {date_text} - {headline_text}")
+    print(f"{idx}. {formatted_date} - {headline_text}")
