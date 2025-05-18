@@ -1,4 +1,6 @@
 import random
+import os
+import time
 from wordlist import common_spanish_words
 
 def quiz_user(common_spanish_words):
@@ -21,12 +23,15 @@ def quiz_user(common_spanish_words):
                 count += 1
                 print(f"Correct! {word['english']} is the translation of {word['spanish']}!")
                 print(f"Your score so far is {score}.")
+                time.sleep(2)
+                os.system('cls')
                 
             else:
                 count +=1
                 print(f"Incorrect! The english translation of {word['spanish']} is {word['english']}. You have selected {user_answer}")
                 print(f"Your score so far is {score}.")
-                
+                time.sleep(2)
+                os.system('cls')
     
 
 def language_app():
