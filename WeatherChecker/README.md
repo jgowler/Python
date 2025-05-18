@@ -1,13 +1,15 @@
-# Weather Checker Script 🌦️
+# Weather Checker Script  
 
-This Python script fetches real-time weather data using the OpenWeatherMap API. It automatically installs necessary dependencies, reads environment variables, and retrieves weather details such as temperature, conditions, humidity, and wind speed for a given city.
+## Overview  
+This Python script retrieves **real-time weather data** using the OpenWeatherMap API.  
+It automates dependency installation, reads environment variables securely, and fetches weather details such as **temperature, conditions, humidity, and wind speed** for a specified city.
 
-## Features
-- ✅ Automatically installs required packages (`requests`, `python-dotenv`)
-- ✅ Fetches weather data based on user input
-- ✅ Handles errors for missing API keys or invalid city names
-- ✅ Uses `.env` file to securely store API keys
+## Features  
+- **Automated dependency installation** (`requests`, `python-dotenv`)  
+- **User-input based weather retrieval** for flexible queries  
+- **Error handling** for missing API keys and invalid city names  
+- **Secure API key management** using a `.env` file  
 
-## Requirements
-- Python 3.x
+## Requirements  
+- Python 3.x  
 - OpenWeatherMap API key
