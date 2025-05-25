@@ -41,6 +41,9 @@ http://www.omdbapi.com/?apikey={YOUR_API_KEY}&t={MovieName}
 ## Example Output
 
 Title: Rocky
+
 Released: 03 Dec 1976
+
 Genre: Drama, Sport
+
 Plot: A small-time Philadelphia boxer gets a supremely rare chance to fight the world heavyweight champion in a bout in which he strives to go the distance for his self-respect.
