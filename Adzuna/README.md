@@ -11,7 +11,9 @@ Sensitive details like API keys are stored in a `.env` file instead of being har
 2. Add the following:
 
 API_KEY = your_api_key_here
+
 APP_ID = your_app_id_here
+
 ROOT_URL = "https://api.adzuna.com/v1/api/jobs/gb/search/1"
 
 3. Save the file.
