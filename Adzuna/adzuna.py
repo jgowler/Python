@@ -9,7 +9,7 @@ from tqdm import tqdm
 # Create a funtion to check for and install the necessary packages to run script:
 def required_packages():
     packages = [ 'httpx', 'python-dotenv' ]
-    for package in tqdm(packages, desc="Checking installed packages..."):
+    for package in tqdm(packages, desc = "Checking installed packages..."):
         import_name = 'dotenv' if package == 'python-dotenv' else package
         try:
             importlib.import_module(import_name)
