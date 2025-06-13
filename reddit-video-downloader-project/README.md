@@ -14,6 +14,7 @@ https://github.com/yt-dlp/yt-dlp
 - Downloads video and audio separately.
 - Saves files using the Reddit post title as the filename.
 - Uses a `.env` file to store sensitive information.
+- Provides a **GUI** for easy interaction using CustomTKinter.
 
 ## Prerequisites
 
@@ -24,3 +25,8 @@ Before running this script, install the following dependencies:
 **The following will be downloaded automatically during the running of the script**
 - [`python-dotenv`](https://pypi.org/project/python-dotenv/)
 - [`yt-dlp`](https://github.com/yt-dlp/yt-dlp)
+- [`customtkinter`](https://github.com/TomSchimansky/CustomTkinter) (for GUI support)
+
+## Using CustomTKinter for a GUI
+
+This script includes a graphical user interface (GUI) built with CustomTKinter, a modern replacement for Tkinter. The GUI provides a simple interface for users to enter a subreddit, fetch posts, and download videos effortlessly.
