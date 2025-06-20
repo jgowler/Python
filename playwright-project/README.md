@@ -5,7 +5,8 @@ This tool was developed as a project to deepen my understanding of Playwright an
 ## How the Script Works
 
 1. **Setup and Dependencies**  
-   - Installs required packages (`pytest-playwright`, `python-dotenv`, `tqdm`) if they are not already installed.  
+   - Installs required packages (`pytest-playwright`, `python-dotenv`, `tqdm`) if they are not already installed.
+   - All packages used during the development of this program can be found in the **"requirements.txt"** file
    - Loads environment variables from the `.env` file to retrieve necessary configurations.  
 
 2. **Configuration**  
