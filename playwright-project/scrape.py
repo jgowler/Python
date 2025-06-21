@@ -10,18 +10,9 @@ import customtkinter as ctk # Custom TKinter
 from tqdm import tqdm # Used to create a progress bar as browser will run headless.
 import threading # Allow app to run in the background
 import os
-
-
-
-# Define a function to clear the screen once the required_packages function has run:
-def clear_screen():
-    if os.name == "nt": # Windows
-        os.system("cls")
-    else: # Linux, Mac
-        os.system("clear")
+from pathlib import Path
 
 # Variables:
-os.environ["PLAYWRIGHT_BROWSERS_PATH"] = "0"
 today_date = datetime.now().strftime("%d-%m-%Y")
 url = "https://tramitacion.senado.cl/appsenado/templates/tramitacion/"
 bill_numbers = ["14986-13","14509-13","15098-13","14649-13","14650-13","14698-13","14718-13","14737-13","14782-13","14815-13","14840-13","14906-13","14836-13","15361-13","15401-13","15660-13","15446-13","15725-13","14335-13","14643-03","14899-07","15075-03","15440-03","15638-15","15610-03","15762-03","14632-03","9914-11","15039-11","14668-11","15129-11","15414-11","15681-06","15429-11","14094-11","15850-11","15353-07","15766-03","14820-04","14561-19","15017-12","15577-07","15687-12","15749-12","15326-12","15763-12","14805-12","14767-03","14821-07","8197-07","15516-34","14944-03","15044-12"]
