@@ -93,7 +93,6 @@ class BillsDownloaderApp:
             browser = p.chromium.launch(headless=True, slow_mo=50)
             context = browser.new_context(accept_downloads=True)
             page = context.new_page()
-            clear_screen()
             
             # For each of the bills specified in the .env file...:
             for bill in bill_numbers:
