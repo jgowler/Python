@@ -18,14 +18,16 @@ These two files were created to briefly go over how kto create Classes and Child
 ### What is a method in a class?
 - Methods are functions that are defined _inside_ a class.
 Example:
-    `def weapon_attack(self):
+```python
+    def weapon_attack(self):
         if self.weapon == True:
             damage = self.str * 2
             print(f"{self.name} used their weapon to attack for {damage} damage!")
             print(f"{self.name}'s weapon broke from the attack.")
             self.weapon == False
         else:
-            print(f"{self.name} does not have a weapon, the attack failed.")`
+            print(f"{self.name} does not have a weapon, the attack failed.")
+```
 
 - They describe the behaviors or actions that instances (objects) of the class can perform.
 - When called, methods have access to the instance that called them via the special parameter self.
