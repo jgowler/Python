@@ -27,7 +27,7 @@ reddit = praw.Reddit(
     user_agent='personal use script'
 )
 
-# remove invlaid characters:
+# remove invalid characters:
 def sanitize_filename(filename):
     return re.sub(r'[\\/*?:"<>|]', "", filename)
 
@@ -66,8 +66,8 @@ def download_files():
     for post in posts:
         if post.media and "reddit_video" in post.media:
             reddit_post_url = f"https://www.reddit.com{post.permalink}"
-            safe_title = sanitize_filename(post.title)
-            output_filename = f"{safe_title}.mp4"
+            save_title = sanitize_filename(post.title)
+            output_filename = f"{save_title}.mp4"
             full_path = os.path.join(save_location, output_filename)
 
             info_label.configure(text=f"Downloading: {post.title}")
