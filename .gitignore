@@ -42,5 +42,8 @@ Thumbs.db
 # uv-generated binary cache (rare, only if manually enabled)
 .uv/
 
+# uv lock file
+uv.lock
+
 # Optional: lock files (if you use them, keep or ignore intentionally)
 requirements.lock
