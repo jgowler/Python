@@ -1,4 +1,46 @@
-.vscode
-*.env
-__pycache__
-venv*
+# PEP 582 local packages (created by uv)
+__pypackages__/
+
+# Bytecode cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Editable install artifacts
+*.egg-info/
+*.egg
+*.eggs/
+*.dist-info/
+
+# Build artifacts
+build/
+dist/
+*.wheel
+
+# Logs and debug info
+*.log
+
+# Python environment files (if any remain)
+.env
+.venv/
+venv/
+
+# Pytest and test cache
+.cache/
+.pytest_cache/
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# uv-generated binary cache (rare, only if manually enabled)
+.uv/
+
+# Optional: lock files (if you use them, keep or ignore intentionally)
+requirements.lock
