@@ -1,7 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QDateTime
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import matplotlib.pylab as plt
 import pandas as pd
 import sys
+import csv
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -29,7 +32,7 @@ class Ui_MainWindow(object):
         self.top_label.setFont(font)
         self.top_label.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.top_label.setObjectName("top_label")
-        self.load_csv_pushButton = QtWidgets.QPushButton(self.top_frame)
+        self.load_csv_pushButton = QtWidgets.QPushButton(self.top_frame, clicked = lambda: self.open_csv())
         self.load_csv_pushButton.setGeometry(QtCore.QRect(440, 10, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -106,6 +109,13 @@ class Ui_MainWindow(object):
         self.graph_type_comboBox.setGeometry(QtCore.QRect(150, 40, 151, 22))
         self.graph_type_comboBox.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.graph_type_comboBox.setObjectName("graph_type_comboBox")
+        self.graph_type_comboBox.addItems([
+            "line",
+            "bar",
+            "scatter",
+            "hist",
+            "box"
+        ])
         self.x_axis_lineEdit = QtWidgets.QLineEdit(self.bottom_frame)
         self.x_axis_lineEdit.setEnabled(False)
         self.x_axis_lineEdit.setGeometry(QtCore.QRect(410, 70, 161, 20))
@@ -128,10 +138,10 @@ class Ui_MainWindow(object):
         self.graph_name_lineEdit.setGeometry(QtCore.QRect(150, 10, 151, 20))
         self.graph_name_lineEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.graph_name_lineEdit.setObjectName("graph_name_lineEdit")
-        self.save_to_csvpushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.save_to_csvpushButton.setEnabled(False)
-        self.save_to_csvpushButton.setGeometry(QtCore.QRect(480, 220, 111, 31))
-        self.save_to_csvpushButton.setObjectName("save_to_csvpushButton")
+        self.save_to_graph_pushButton = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.plot_to_graph())
+        self.save_to_graph_pushButton.setEnabled(False)
+        self.save_to_graph_pushButton.setGeometry(QtCore.QRect(480, 220, 111, 31))
+        self.save_to_graph_pushButton.setObjectName("save_to_csvpushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 624, 21))
@@ -140,6 +150,14 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        self.graph_type_comboBox.currentIndexChanged.connect(self.validate_input)
+        self.x_axis_comboBox.currentIndexChanged.connect(self.validate_input)
+        self.y_axis_comboBox.currentIndexChanged.connect(self.validate_input)
+        self.graph_name_lineEdit.textChanged.connect(self.validate_input)
+        self.x_axis_lineEdit.textChanged.connect(self.validate_input)
+        self.y_axis_lineEdit.textChanged.connect(self.validate_input)
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -155,7 +173,68 @@ class Ui_MainWindow(object):
         self.y_axis_name_label.setText(_translate("MainWindow", "Label:"))
         self.graph__label.setText(_translate("MainWindow", "Graph type:"))
         self.graph_name_label.setText(_translate("MainWindow", "Graph name:"))
-        self.save_to_csvpushButton.setText(_translate("MainWindow", "Save to CSV"))
+        self.save_to_graph_pushButton.setText(_translate("MainWindow", "Plot to graph"))
+
+### Functions:
+
+    def validate_input(self):
+        all_fields_valid = (
+            self.graph_type_comboBox.currentText().strip() != "" and
+            self.x_axis_comboBox.currentText().strip() != "" and
+            self.y_axis_comboBox.currentText().strip() != "" and
+            self.graph_name_lineEdit.text().strip() != "" and
+            self.x_axis_lineEdit.text().strip() != "" and
+            self.y_axis_lineEdit.text().strip() != ""
+        )
+        self.save_to_graph_pushButton.setEnabled(all_fields_valid)
+
+    def open_csv(self):
+        options = QFileDialog.Options()
+        filename, _ = QFileDialog.getOpenFileName(
+            None,
+            "Open CSV File",
+            "",
+            "CSV Files (*.csv);;All Files (*)",
+            options = options
+        )
+        if filename:
+            try:
+                self.statusbar.showMessage(f"File loaded: {filename}")
+                self.graph_name_lineEdit.setEnabled(True)
+                self.graph_name_lineEdit.clear()
+                self.graph_type_comboBox.setEnabled(True)
+                self.x_axis_lineEdit.setEnabled(True)
+                self.x_axis_lineEdit.clear()
+                self.y_axis_lineEdit.setEnabled(True)
+                self.y_axis_lineEdit.clear()
+                self.x_axis_comboBox.setEnabled(True)
+                self.y_axis_comboBox.setEnabled(True)
+                self.df = pd.read_csv(filename)
+                headers = self.df.columns.tolist()
+                for h in headers:
+                    self.x_axis_comboBox.addItem(h)
+                    self.y_axis_comboBox.addItem(h)
+            except Exception as e:
+                QMessageBox.critical(None, "Import failed", f"An error occured:\n{str(e)}")
+
+    def plot_to_graph(self):
+        graph_name = self.graph_name_lineEdit.text()
+        graph_type = self.graph_type_comboBox.currentText()
+        x_axis = self.x_axis_comboBox.currentText()
+        y_axis = self.y_axis_comboBox.currentText()
+        x_label = self.x_axis_lineEdit.text()
+        y_label = self.y_axis_lineEdit.text()
+
+        try:
+            plot_func = getattr(self.df.plot, graph_type)
+            ax = plot_func(x = x_axis, y = y_axis)
+            ax.set_xlabel(x_label)
+            ax.set_label(y_label)
+            ax.set_title(graph_name)
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+            plt.show()
+        except Exception as e:
+            QMessageBox.critical(None, "Plotting failed", f"An error occured:\n{str(e)}")
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
