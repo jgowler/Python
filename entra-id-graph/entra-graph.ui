@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>293</height>
+    <width>623</width>
+    <height>287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -353,6 +353,43 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
+    <widget class="QLabel" name="graph_template_label">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>10</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(206, 206, 206);</string>
+     </property>
+     <property name="text">
+      <string>Graph template:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="graph_template_comboBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>40</y>
+       <width>241</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="save_to_csvpushButton">
     <property name="enabled">
@@ -376,7 +413,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>624</width>
+     <width>623</width>
      <height>21</height>
     </rect>
    </property>
