@@ -110,11 +110,11 @@ class Ui_MainWindow(object):
         self.graph_type_comboBox.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.graph_type_comboBox.setObjectName("graph_type_comboBox")
         self.graph_type_comboBox.addItems([
-            "line",
-            "bar",
-            "scatter",
-            "hist",
-            "box"
+            "Line Plot",
+            "Bar Plot",
+            "Scatter Plot",
+            "Histogram",
+            "Box Plot"
         ])
         self.x_axis_lineEdit = QtWidgets.QLineEdit(self.bottom_frame)
         self.x_axis_lineEdit.setEnabled(False)
@@ -156,10 +156,9 @@ class Ui_MainWindow(object):
             "Login Activity Over Time",
             "Sign-ins by Location",
             "Top Users by Sign-in Count",
-            "MFA Usage Rate",
-            "Failure Reasons Breakdown",
             "Sign-ins by Client App",
             "Authentication Type Breakdown",
+            "Failed sign-in reasons"
         ])
         self.save_to_graph_pushButton = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.plot_to_graph())
         self.save_to_graph_pushButton.setEnabled(False)
@@ -198,6 +197,8 @@ class Ui_MainWindow(object):
         self.graph_name_label.setText(_translate("MainWindow", "Graph Name"))
         self.graph_template_label.setText(_translate("MainWindow", "Graph Template"))
         self.save_to_graph_pushButton.setText(_translate("MainWindow", "Plot Graph"))
+
+### Functions:
 
     def validate_input(self):
         all_fields_valid = (
@@ -240,7 +241,6 @@ class Ui_MainWindow(object):
             except Exception as e:
                 QMessageBox.critical(None, "Import failed", f"An error occured:\n{str(e)}")
 
-
     def plot_to_graph(self):
         if not hasattr(self, "df") or self.df.empty:
             QMessageBox.warning(None, "No Data", "Please load a valid CSV file first.")
@@ -256,15 +256,15 @@ class Ui_MainWindow(object):
             x_label = self.x_axis_lineEdit.text().strip()
             y_label = self.y_axis_lineEdit.text().strip()
 
-            if graph_type == "line":
+            if graph_type == "Line Plot":
                 self.df.plot(x=x_axis, y=y_axis, kind="line")
-            elif graph_type == "bar":
+            elif graph_type == "Bar Plot":
                 self.df.plot(x=x_axis, y=y_axis, kind="bar")
-            elif graph_type == "scatter":
+            elif graph_type == "Scatter Plot":
                 self.df.plot(x=x_axis, y=y_axis, kind="scatter")
-            elif graph_type == "hist":
+            elif graph_type == "Histogram":
                 self.df.plot(y=y_axis, kind="hist")
-            elif graph_type == "box":
+            elif graph_type == "Box Plot":
                 self.df.plot(y=y_axis, kind="box")
             else:
                 QMessageBox.warning(None, "Unknown Graph Type", f"Graph type '{graph_type}' is not recognized.")
@@ -273,6 +273,9 @@ class Ui_MainWindow(object):
             ax.set_title(graph_name)
             ax.set_xlabel(x_label)
             ax.set_ylabel(y_label)
+            ax.tick_params(axis='x', labelrotation=45)
+            plt.tight_layout()
+            plt.subplots_adjust(bottom=0.25)
             plt.show()
         else:
             try:
@@ -283,9 +286,13 @@ class Ui_MainWindow(object):
                 elif template_select == "Top Users by Sign-in Count":
                     self.plot_top_users(self.df)
                 elif template_select == "Sign-ins by Location":
-                    self.plot_signins_by_city(self.df)
+                    self.plot_signins_by_location(self.df)
                 elif template_select == "Sign-ins by Client App":
                     self.plot_signins_by_client_app(self.df)
+                elif template_select == "Authentication Type Breakdown":
+                    self.plot_auth_type_breakdown(self.df)
+                elif template_select == "Failed sign-in reasons":
+                    self.failed_sign_in_reasons(self.df)
                 else:
                     QMessageBox.warning(None, "Unknown Template", f"The selected template '{template_select}' is not recognized.")
             except Exception as e:
@@ -340,16 +347,43 @@ class Ui_MainWindow(object):
         plt.tight_layout()
         plt.show()
 
-    def plot_signins_by_city(self, df):
+    def plot_signins_by_location(self, df):
         if 'Location' not in df.columns:
             QMessageBox.warning(None, "Missing Data", "Column 'Location' not found in data.")
             return
 
-        city_counts = df['Location'].dropna().value_counts().head(10)
-        city_counts.plot(kind='bar')
-        plt.title("Sign-ins by Location")
-        plt.xlabel("Location")
-        plt.ylabel("Sign-in Count")
+        df = df.dropna(subset=['Location', 'Status'])
+        df['Status'] = df['Status'].str.strip().str.lower()
+        df['Location'] = df['Location'].str.strip()
+        # Group by location and size
+        grouped = df.groupby(['Location', 'Status']).size().unstack(fill_value=0)
+        top_locations = grouped.sum(axis=1).nlargest(10).index
+        grouped_top = grouped.loc[top_locations]
+
+        ax = grouped_top.plot(kind='bar', stacked=False, color=['green', 'red'])
+        ax.set_title("Sign-ins by Location and Status")
+        ax.set_xlabel("Location")
+        ax.set_ylabel("Sign-in Count")
+        ax.tick_params(axis='x', labelrotation=45)
+        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.25)  # Prevent label cutoff
+        plt.legend(title="Status")
+        plt.show()
+
+    def failed_sign_in_reasons(self, df):
+        if 'Failure reason' not in df.columns:
+            QMessageBox.warning(None, "Missing data", "Column 'Failure reason' not found in data")
+            return
+        
+        reason = df['Failure reason'].dropna().value_counts().head(10)
+        df['Status'] = df['Status'].str.strip().str.lower()
+        failed_df = df[df['Status'] == 'failure']  # note lowercase if you're stripping and lowering status
+        reason_count = failed_df['Failure reason'].value_counts()
+
+        reason_count.plot(kind='bar', color='red')
+        plt.title('Failed sign-in reasons')
+        plt.xlabel("Failure reasons")
+        plt.ylabel("Count")
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
@@ -368,6 +402,18 @@ class Ui_MainWindow(object):
         plt.tight_layout()
         plt.show()
 
+    def plot_auth_type_breakdown(self, df):
+        if 'Multifactor authentication auth method' not in df.columns:
+            QMessageBox.warninf(None, "MIssing Data", "Column 'Multifactor authentication auth method' not found in data.")
+            return
+        mfa_counts = df['Multifactor authentication auth method'].dropna().value_counts().head(10)
+        mfa_counts.plot(kind='bar')
+        plt.title("Authentication Type Breakdown")
+        plt.xlabel('Authentication Type Breakdown')
+        plt.ylabel("Count")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
 
     def graph_template_selection(self):
         template_select = self.graph_template_comboBox.currentText().strip()
