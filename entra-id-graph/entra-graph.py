@@ -186,8 +186,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Graph Creator"))
-        self.top_label.setText(_translate("MainWindow", "Graph Creator"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Entra Graph"))
+        self.top_label.setText(_translate("MainWindow", "Entra Graph"))
         self.load_csv_pushButton.setText(_translate("MainWindow", "Load CSV"))
         self.x_axis_selection_label.setText(_translate("MainWindow", "X Axis Column"))
         self.y_axis_selection_label.setText(_translate("MainWindow", "Y Axis Column"))
