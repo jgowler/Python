@@ -1,11 +1,24 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDateTime, Qt, QTimer
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QSplashScreen
 from PyQt5.QtGui import QPixmap
 import matplotlib.pylab as plt
 import seaborn as sns
 import pandas as pd
 import sys
+import os
+
+
+def resource_path(relative_path):
+    if hasattr(sys, "_MEIPASS"):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+
+splash_image_path = resource_path("EntraGrapher.png")
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -50,7 +63,9 @@ class Ui_MainWindow(object):
         self.loaded_csv_label.setObjectName("loaded_csv_label")
         self.top_frame_layout.addWidget(self.loaded_csv_label, 1, Qt.AlignCenter)
 
-        self.load_csv_pushButton = QtWidgets.QPushButton(self.top_frame, clicked=lambda: self.open_csv())
+        self.load_csv_pushButton = QtWidgets.QPushButton(
+            self.top_frame, clicked=lambda: self.open_csv()
+        )
         font_btn = QtGui.QFont()
         font_btn.setPointSize(14)
         self.load_csv_pushButton.setFont(font_btn)
@@ -88,19 +103,23 @@ class Ui_MainWindow(object):
         font_combo = QtGui.QFont()
         font_combo.setPointSize(12)
         self.graph_template_comboBox.setFont(font_combo)
-        self.graph_template_comboBox.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.graph_template_comboBox.setStyleSheet(
+            "background-color: rgb(255, 255, 255);"
+        )
         self.graph_template_comboBox.setObjectName("graph_template_comboBox")
-        self.graph_template_comboBox.addItems([
-            "",
-            "Successful Login Outside of GB",
-            "Login Success vs Failure Count",
-            "Login Activity Over Time",
-            "Sign-ins by Location",
-            "Top Users by Sign-in Count",
-            "Sign-ins by Client App",
-            "Authentication Type Breakdown",
-            "Failed sign-in reasons"
-        ])
+        self.graph_template_comboBox.addItems(
+            [
+                "",
+                "Successful Login Outside of GB",
+                "Login Success vs Failure Count",
+                "Login Activity Over Time",
+                "Sign-ins by Location",
+                "Top Users by Sign-in Count",
+                "Sign-ins by Client App",
+                "Authentication Type Breakdown",
+                "Failed sign-in reasons",
+            ]
+        )
         self.graph_template_comboBox.setEnabled(False)  # Enable after CSV loaded
         self.template_layout.addWidget(self.graph_template_comboBox, 1)
 
@@ -108,8 +127,12 @@ class Ui_MainWindow(object):
 
         self.data_preview_table = QtWidgets.QTableWidget(self.main_frame)
         self.data_preview_table.setObjectName("data_preview_table")
-        self.data_preview_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # read-only
-        self.data_preview_table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.data_preview_table.setEditTriggers(
+            QtWidgets.QAbstractItemView.NoEditTriggers
+        )  # read-only
+        self.data_preview_table.setSelectionBehavior(
+            QtWidgets.QAbstractItemView.SelectRows
+        )
         self.data_preview_table.setMinimumHeight(240)
         self.main_frame_layout.addWidget(self.data_preview_table)
 
@@ -118,12 +141,16 @@ class Ui_MainWindow(object):
         self.button_layout = QtWidgets.QHBoxLayout()
         self.button_layout.addStretch()  # push button to the right
 
-        self.save_to_graph_pushButton = QtWidgets.QPushButton(self.centralwidget, clicked=lambda: self.plot_to_graph())
+        self.save_to_graph_pushButton = QtWidgets.QPushButton(
+            self.centralwidget, clicked=lambda: self.plot_to_graph()
+        )
         self.save_to_graph_pushButton.setEnabled(False)  # Enable after selection
         font_btn2 = QtGui.QFont()
         font_btn2.setPointSize(14)
         self.save_to_graph_pushButton.setFont(font_btn2)
-        self.save_to_graph_pushButton.setStyleSheet("background-color: rgb(206, 206, 206);")
+        self.save_to_graph_pushButton.setStyleSheet(
+            "background-color: rgb(206, 206, 206);"
+        )
         self.save_to_graph_pushButton.setObjectName("save_to_graph_pushButton")
         self.button_layout.addWidget(self.save_to_graph_pushButton)
 
@@ -134,7 +161,9 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.graph_template_comboBox.currentIndexChanged.connect(self.graph_template_selection)
+        self.graph_template_comboBox.currentIndexChanged.connect(
+            self.graph_template_selection
+        )
         self.graph_template_comboBox.currentIndexChanged.connect(self.validate_input)
 
         self.retranslateUi(MainWindow)
@@ -171,7 +200,7 @@ class Ui_MainWindow(object):
             "Open CSV File",
             "",
             "CSV Files (*.csv);;All Files (*)",
-            options=options
+            options=options,
         )
         if filename:
             try:
@@ -184,7 +213,9 @@ class Ui_MainWindow(object):
 
                 self.populate_table(self.df)
             except Exception as e:
-                QMessageBox.critical(None, "Import failed", f"An error occured:\n{str(e)}")
+                QMessageBox.critical(
+                    None, "Import failed", f"An error occured:\n{str(e)}"
+                )
 
     def plot_to_graph(self):
         if not hasattr(self, "df") or self.df.empty:
@@ -194,7 +225,9 @@ class Ui_MainWindow(object):
         template_select = self.graph_template_comboBox.currentText().strip()
 
         if template_select == "":
-            QMessageBox.warning(None, "No Template Selected", "Please select a graph template to plot.")
+            QMessageBox.warning(
+                None, "No Template Selected", "Please select a graph template to plot."
+            )
             return
 
         try:
@@ -206,69 +239,95 @@ class Ui_MainWindow(object):
                 "Sign-ins by Location": self.plot_signins_by_location,
                 "Sign-ins by Client App": self.plot_signins_by_client_app,
                 "Authentication Type Breakdown": self.plot_auth_type_breakdown,
-                "Failed sign-in reasons": self.failed_sign_in_reasons
+                "Failed sign-in reasons": self.failed_sign_in_reasons,
             }
 
             plot_func = template_map.get(template_select)
             if plot_func:
                 plot_func(self.df)
             else:
-                QMessageBox.warning(None, "Unknown Template", f"The selected template '{template_select}' is not recognized.")
+                QMessageBox.warning(
+                    None,
+                    "Unknown Template",
+                    f"The selected template '{template_select}' is not recognized.",
+                )
         except Exception as e:
-            QMessageBox.critical(None, "Plotting failed", f"An error occurred:\n{str(e)}")
+            QMessageBox.critical(
+                None, "Plotting failed", f"An error occurred:\n{str(e)}"
+            )
 
     def successful_login_outside_gb(self, df):
-        if 'Status' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Status' not found in data.")
+        if "Status" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'Status' not found in data."
+            )
             return
-        elif 'Location' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Location' not found in data.")
+        elif "Location" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'Location' not found in data."
+            )
             return
 
-        df['Location'] = df['Location'].astype(str).str.strip().str.upper()
-        filtered_df = df[(df['Status'] == 'Success') & (~df['Location'].str.contains("GB"))]
+        df["Location"] = df["Location"].astype(str).str.strip().str.upper()
+        filtered_df = df[
+            (df["Status"] == "Success") & (~df["Location"].str.contains("GB"))
+        ]
 
         if filtered_df.empty:
-            QMessageBox.information(None, "No Data", "No successful logins outside of GB found.")
+            QMessageBox.information(
+                None, "No Data", "No successful logins outside of GB found."
+            )
             return
 
         plt.figure(figsize=(10, 6))
-        sns.countplot(data=filtered_df, x='Location', order=filtered_df['Location'].value_counts().index)
+        sns.countplot(
+            data=filtered_df,
+            x="Location",
+            order=filtered_df["Location"].value_counts().index,
+        )
         plt.title("Successful Login Outside of GB by Location")
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
 
     def plot_login_success_failure(self, df):
-        if 'Status' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Status' not found in data.")
+        if "Status" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'Status' not found in data."
+            )
             return
 
-        status_counts = df['Status'].value_counts()
+        status_counts = df["Status"].value_counts()
 
         plt.figure(figsize=(6, 6))
-        plt.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=140)
+        plt.pie(
+            status_counts, labels=status_counts.index, autopct="%1.1f%%", startangle=140
+        )
         plt.title("Login Success vs Failure Count")
-        plt.axis('equal')
+        plt.axis("equal")
         plt.show()
 
     def plot_signins_over_time(self, df):
-        if 'Date' in df.columns:
-            date_col = 'Date'
-        elif 'Date (UTC)' in df.columns:
-            date_col = 'Date (UTC)'
+        if "Date" in df.columns:
+            date_col = "Date"
+        elif "Date (UTC)" in df.columns:
+            date_col = "Date (UTC)"
         else:
-            QMessageBox.warning(None, "Missing Data", "Neither 'Date' nor 'Date (UTC)' column found in data.")
+            QMessageBox.warning(
+                None,
+                "Missing Data",
+                "Neither 'Date' nor 'Date (UTC)' column found in data.",
+            )
             return
 
-        df[date_col] = pd.to_datetime(df[date_col], errors='coerce')
+        df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
         df = df.dropna(subset=[date_col])
 
-        counts = df.groupby(df[date_col].dt.date).size().reset_index(name='Count')
-        counts.rename(columns={date_col: 'Date'}, inplace=True)
+        counts = df.groupby(df[date_col].dt.date).size().reset_index(name="Count")
+        counts.rename(columns={date_col: "Date"}, inplace=True)
 
         plt.figure(figsize=(12, 6))
-        sns.lineplot(data=counts, x='Date', y='Count')
+        sns.lineplot(data=counts, x="Date", y="Count")
         plt.title("Login Activity Over Time")
         plt.xlabel("Date")
         plt.ylabel("Sign-in Count")
@@ -276,16 +335,17 @@ class Ui_MainWindow(object):
         plt.tight_layout()
         plt.show()
 
-
     def plot_top_users(self, df):
-        if 'User' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'User' not found in data.")
+        if "User" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'User' not found in data."
+            )
             return
 
-        user_counts = df['User'].value_counts().head(10)
+        user_counts = df["User"].value_counts().head(10)
 
         plt.figure(figsize=(12, 6))
-        sns.barplot(x=user_counts.values, y=user_counts.index, orient='h')
+        sns.barplot(x=user_counts.values, y=user_counts.index, orient="h")
         plt.title("Top Users by Sign-in Count")
         plt.xlabel("Count")
         plt.ylabel("User")
@@ -293,11 +353,13 @@ class Ui_MainWindow(object):
         plt.show()
 
     def plot_signins_by_location(self, df):
-        if 'Location' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Location' not found in data.")
+        if "Location" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'Location' not found in data."
+            )
             return
 
-        location_counts = df['Location'].value_counts()
+        location_counts = df["Location"].value_counts()
 
         plt.figure(figsize=(10, 6))
         sns.barplot(x=location_counts.index, y=location_counts.values)
@@ -309,11 +371,13 @@ class Ui_MainWindow(object):
         plt.show()
 
     def plot_signins_by_client_app(self, df):
-        if 'Client app' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Client app' not found in data.")
+        if "Client app" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'Client app' not found in data."
+            )
             return
 
-        app_counts = df['Client app'].value_counts()
+        app_counts = df["Client app"].value_counts()
 
         plt.figure(figsize=(10, 6))
         sns.barplot(x=app_counts.index, y=app_counts.values)
@@ -325,24 +389,32 @@ class Ui_MainWindow(object):
         plt.show()
 
     def plot_auth_type_breakdown(self, df):
-        if 'Multifactor authentication auth method' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Multifactor authentication auth method' not found in data.")
+        if "Multifactor authentication auth method" not in df.columns:
+            QMessageBox.warning(
+                None,
+                "Missing Data",
+                "Column 'Multifactor authentication auth method' not found in data.",
+            )
             return
 
-        auth_counts = df['Multifactor authentication auth method'].value_counts()
+        auth_counts = df["Multifactor authentication auth method"].value_counts()
 
         plt.figure(figsize=(6, 6))
-        plt.pie(auth_counts, labels=auth_counts.index, autopct='%1.1f%%', startangle=140)
+        plt.pie(
+            auth_counts, labels=auth_counts.index, autopct="%1.1f%%", startangle=140
+        )
         plt.title("Authentication Type Breakdown")
-        plt.axis('equal')
+        plt.axis("equal")
         plt.show()
 
     def failed_sign_in_reasons(self, df):
-        if 'Failure reason' not in df.columns:
-            QMessageBox.warning(None, "Missing Data", "Column 'Failure reason' not found in data.")
+        if "Failure reason" not in df.columns:
+            QMessageBox.warning(
+                None, "Missing Data", "Column 'Failure reason' not found in data."
+            )
             return
 
-        failure_counts = df['Failure reason'].value_counts()
+        failure_counts = df["Failure reason"].value_counts()
 
         plt.figure(figsize=(10, 6))
         sns.barplot(x=failure_counts.index, y=failure_counts.values)
@@ -356,9 +428,10 @@ class Ui_MainWindow(object):
     def graph_template_selection(self):
         self.validate_input()
 
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    splash_pix = QPixmap("EntraGrapher.png")
+    splash_pix = QPixmap(splash_image_path)
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
     splash.show()
