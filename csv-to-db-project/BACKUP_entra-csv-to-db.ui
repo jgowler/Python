@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1059</width>
+    <height>693</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Entra CSV to Db</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame_Top_Frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>551</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(58, 58, 212);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_Top">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>15</y>
+       <width>541</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Entra CSV to Database</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_Select_CSV">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>541</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Sunken</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton_Select_CSV">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select CSV File</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_Select_CSV">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>20</y>
+       <width>371</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;---No CSV file selected. Please select a CSV file to continue</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_Seperator">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>130</y>
+      <width>551</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(58, 58, 212);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>541</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Sunken</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton_Validate_CSV_Headers">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Check Headers against DB</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_Validate_Headers">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>20</y>
+       <width>371</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;---Validate Headers</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_Status">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>60</y>
+       <width>551</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_Status">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>240</y>
+      <width>531</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <property name="text">
+     <string>Status:</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_Seperator_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>551</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(58, 58, 212);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Add_to_DB">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>360</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add CSV Data to DB</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_Seperator_3">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>10</y>
+      <width>20</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(58, 58, 212);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_Log_Output">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>340</y>
+      <width>361</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Consolas</family>
+     </font>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Logs_Output">
+    <property name="geometry">
+     <rect>
+      <x>178</x>
+      <y>310</y>
+      <width>371</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Output Logs</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_DB">
+    <property name="geometry">
+     <rect>
+      <x>599</x>
+      <y>19</y>
+      <width>441</width>
+      <height>621</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Database</string>
+    </property>
+    <widget class="QTableView" name="tableView_DB">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>421</width>
+       <height>591</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Add_Table_to_DB">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>400</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Table to DB</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Table">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>541</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Tables</string>
+    </property>
+    <widget class="QComboBox" name="comboBox_select_table">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>30</y>
+       <width>151</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="currentText">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Search">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Search for...</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Export_Table_to_CSV">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Export Table to CSV</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Backup_DB">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Backup DB...</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Remove_Tabl_from_DB">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Remove Table from DB</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Restore_DB">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>600</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Restore DB...</string>
+    </property>
+   </widget>
+   <zorder>groupBox_Table</zorder>
+   <zorder>frame_Top_Frame</zorder>
+   <zorder>frame_Select_CSV</zorder>
+   <zorder>frame_Seperator</zorder>
+   <zorder>frame</zorder>
+   <zorder>label_Status</zorder>
+   <zorder>frame_Seperator_2</zorder>
+   <zorder>pushButton_Add_to_DB</zorder>
+   <zorder>frame_Seperator_3</zorder>
+   <zorder>textEdit_Log_Output</zorder>
+   <zorder>label_Logs_Output</zorder>
+   <zorder>groupBox_DB</zorder>
+   <zorder>pushButton_Add_Table_to_DB</zorder>
+   <zorder>pushButton_Restore_DB</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1059</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
