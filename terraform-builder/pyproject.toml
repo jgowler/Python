@@ -1,0 +1,12 @@
+[project]
+name = "terraform-builder"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "jinja2>=3.1.6",
+    "pyside6>=6.9.1",
+    "pyside6-addons>=6.9.1",
+    "pyside6-essentials>=6.9.1",
+]

@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TerraformVariablesGenerator</class>
+ <widget class="QMainWindow" name="TerraformVariablesGenerator">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>694</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Terraform TFVARS creator</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox_customer">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>271</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Customer Info:</string>
+    </property>
+    <widget class="QLabel" name="label_customerCode">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Customer Code:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_businessName">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Business Name:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_tenantId">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Tenant ID:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_domainName">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Domain Name:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_subscriptionId">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Subscription ID:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_location">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Location:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_location">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>170</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>50</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>150</y>
+      <width>141</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>120</y>
+      <width>141</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>90</y>
+      <width>141</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_avd">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>10</y>
+      <width>381</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>AVD Session Host Config:</string>
+    </property>
+    <widget class="QLabel" name="label_avd_vm_size">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVD VM Size:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_encryption_at_host">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Encryption at Host:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_encryption_at_host">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>50</y>
+       <width>76</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enabled?</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_temp_storage">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create Temp storage?:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_avd_temp_storage">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>80</y>
+       <width>76</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enabled?</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_os_disk_tier">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVD OS Disk Tier:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_host_pool_count">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVD Host Pool Count:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_hostPoolCount">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>170</y>
+       <width>69</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_os_disk_size">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVD OS Disk Size:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_avd_vm_disk_tier">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>110</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_avdOsDiskSize">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>140</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_host_operating_system">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>200</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVD Host Operating System:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_avd_vm_operatin_system">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>200</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_avd_Local_admin_password">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>201</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVD Host Local  Admin Password::</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_avdLocalAdminPassword">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>230</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QComboBox" name="comboBox_avd_vm_size">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>30</y>
+      <width>141</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_additional_Vms">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>290</y>
+      <width>381</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Additional VM's:</string>
+    </property>
+    <widget class="QCheckBox" name="checkBox_sqlServer">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>151</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create SQL Server?</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_configureSqlServer">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>20</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Configure SQL Server</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_appServer">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>151</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create App Server?</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_configureAppServer">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>50</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Configure App Server</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_iisServer">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>151</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Configure IIS Server</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_configureIisServer">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>80</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Configure IIS Server</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_VPN">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>261</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>VPN:</string>
+    </property>
+    <widget class="QCheckBox" name="checkBox_VPN">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create VPN?</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_configureVPN">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>30</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Configure VPN</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_saveLocation">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>261</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Save:</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_saveLocation">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>20</y>
+       <width>111</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save to...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_saveLocation">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save template to:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_location_update">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>241</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_preflight_check">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>410</y>
+      <width>661</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Config Checks:</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_preview_variables_file">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Preview terraform.auto.tfvars</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_generate_files">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>70</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Generate file</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>694</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
